@@ -1,0 +1,101 @@
+<nav class="navbar navbar-inverse no-margin-bottom">
+    <div class="container-fluid">
+        <div class="navbar-header col-sm-3 navbar-left">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+            </button>
+            <a class="navbar-brand" href="/" >
+                <img src="images/logo_favicon/msg.png" alt=""  >
+            </a>
+        </div>
+        <div class="col-sm-4 no-padding">
+            <ul class="nav navbar-nav navbar-left no-padding-start">
+                <li>
+                    <input type="text" name="search" class="searchBox" placeholder="Tìm kiếm tên cuộc trò chuyện" autocomplete="off">
+                    <div id="search-results">
+                        <div class="search_content">
+                            <ul class="people-navbar">
+                               
+                            </ul>
+                            <div class="navbar-search-loading"><div></div><div></div><div></div></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse col-sm-6 navbar-right" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/" title="Trang chủ">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#contactsModal" data-toggle="modal" title="Quản lý liên lạc" id="show-modal-contacts">
+                        <i class="fa fa-user-plus"></i>
+                        <%if (countRequestContactSent + countRequestContactReceived > 0 ) { %>
+                        <div class="noti_contact_counter">
+                            <%= countRequestContactSent + countRequestContactReceived %>
+                        </div>
+                        <%} else {%>
+                            <div class="noti_contact_counter display-none"> </div>
+                        <%}%>
+                      
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" id="noti_Button" data-toggle="modal" title="Thông báo">
+                        <i class="fa fa-globe"></i>
+                        <% if(countReqContactUnread > 0) {%>
+                        <div class="noti_counter">
+                            <%= countReqContactUnread %>
+                        </div>
+                        <%} else {%>
+                            <div class="noti_counter display-none"></div>
+                        <%}%>
+                        <div id="noti_Container">
+                            <div id="notifications">
+                                
+                                <a id="popup-mark-all-notification-as-read" ><strong>Đánh dấu tất cả đã đọc</strong></a>
+                               
+                                <div class="noti_content">
+                                    <% notifications.forEach( notification => { %>
+                                    <%- notification %>    
+                                    <%})%>
+                                </div>
+                                <div id="remove-notification-read" >
+                                    Xóa thông báo đã đọc
+                                </div>
+                                
+                                <div class="seeAll"><a href="#notificationModal" data-toggle="modal">Xem tất cả</a></div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="dropdown" id="dropdown-navbar-user" data-uid="<%= user._id %>">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <img class="avatar-small" id="navbar-avatar"  <% if(user.avatar == "avatar-default.jpg") {%> src="images/users/default/<%= user.avatar %>" <%} else {%>  src="images/users/<%= user.avatar %>" <%}%> alt="">
+                        <span id="user-avatar"><%= user.username %></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#user-profile-modal" data-toggle="modal">
+                                <i class="fa fa-cog"></i>
+                                &nbsp;Cài đặt tài khoản
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/logout">
+                                <i class="fa fa-sign-out"></i>
+                                &nbsp;Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

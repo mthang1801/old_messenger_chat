@@ -1,0 +1,13 @@
+<% usersContactList.forEach( userContact => { %>
+  <a href="#uid_<%=userContact._id %>" data-target="#to_<%= userContact.id %>" class="user-talk" data-uid="<%= userContact._id %>">
+      <li class="person-navbar" data-chat="<%= userContact._id %>">
+         <div class="">
+             <div class="dot-navbar"></div>
+             <img src="images/users/<%= userContact.avatar %>">
+         </div>
+         <span class="user-name">
+             <%= userContact.username %>
+         </span>
+      </li>
+  </a>
+<%})%>

@@ -1,0 +1,12 @@
+<div class="box">
+  <div class="content forgetBox" style="display:none;">
+    <div class="error"></div>
+      <div class="form">
+          <form method="post" html="{:multipart=>true}" data-remote="true" action="/forget" accept-charset="UTF-8">
+              <input id="forget-password-email" class="form-control" type="text" placeholder="Email" name="email" required>
+              <input id="forget-password-confirm-email" class="form-control" type="text" placeholder="Confirm email" name="confirm-email" required>
+              <input class="btn btn-default btn-primary btn-block" type="submit" value="Xác nhận" name="commit">
+          </form>
+      </div>
+  </div>
+</div>   

@@ -1,0 +1,343 @@
+<% allMembersInGroup.forEach( groupChat => { %>
+<div class="modal fade" id="membersGroupChat-<%= groupChat._id %>" role="dialog" data-user="<%= groupChat._id %>-<%= user._id %>">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Thành viên trong nhóm <span style="font-weight:bold;color:#1abc9c"><%= groupChat.name %></span></h4>
+          </div>
+          <div< class="modal-body">
+            
+              <div class="container-fluid">
+                <div class="row">
+                <div class="col-md-5 col-sm-12 find-user-in-group">
+                  <div class="form-search-members-in-group">
+                      <div class="input-group">
+                          <input type="text" class="form-control" class="input-search-friend-in-group-chat" placeholder="Nhập E-mail hoặc username ..." >
+                          <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" id="btn-search-friend-in-group-chat">
+                              <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                        
+                  </div>
+                </div>
+              </div>
+             <div class="members-list">
+              <div class="admins">
+                 Quản trị viên
+                 <hr class="hr-members">
+                 
+                  <div class="row administrators" data-group="<%= groupChat._id %>">
+                  <% groupChat.membersInfor.forEach (member =>  { %>
+                    <% if(member.isAdmin == true) { %>
+                     <% if(member._id == user._id){ %>
+                      <div class="col-md-6 col-sm-12 member" data-chat="<%= member._id %>">
+                          <% if ( !member.isHost ){ %>
+                            <div class="groupPanel text-center admin" data-group="<%= groupChat._id %>" data-uid="<%= member._id %>">
+                              <div class="member-avatar">                                
+                                  <div class="dropdown-in-group">
+                                    <div class="dropdown dropleft">
+                                      <a href="javascript:void(0)" data-toggle="dropdown" data-uid="<%= member._id %>" class=" dropdown-toggle more-icons">
+                                        <img src="images/icons/more.png" >
+                                      </a>                                    
+                                          <ul class="dropdown-menu more-authorize" data-button="<%= member._id %>" data-group="<%= groupChat._id %>">
+                                            <li><a href="javascript:void(0)" class="more-leave-group" data-uid= "<%= member._id %>">Rời khỏi nhóm</a></li>                                        
+                                          </ul>                                                                        
+                                    </div>  
+                                  </div>                                
+                                <div class="member-dot"></div>
+                                <img src="images/users/<%= member.avatar %>"  class="img-avatar">
+                              </div>
+                              <div class="member-name">                              
+                                  <%= member.username %>                              
+                              </div>
+                              <div class="member-address">
+                                <p>
+                                  <%= member.address ? member.address : "" %>
+                                </p>
+                              </div>
+                              <div class="row" >
+                                  <% if(member._id == user._id){ %>
+                                <div class="col-sm-6 col-sm-push-3">                                 
+                                </div>
+                                <% } %>
+                              </div>
+                            </div>
+                          <% } else { %>
+                            <div class="groupPanel text-center host" data-group="<%= groupChat._id %>" data-uid="<%= member._id %>">
+                              <div class="member-avatar">   
+                                <div class="member-dot"></div>
+                                <img src="images/users/<%= member.avatar %>"  class="img-avatar">
+                              </div>
+                              <div class="member-name">           
+                                  <%= member.username %>                                
+                              </div>
+                              <div class="member-address">
+                                <p>
+                                  <%= member.address ? member.address : "" %>
+                                </p>
+                              </div>
+                              <div class="row" >
+                                  <% if(member._id == user._id){ %>
+                                <div class="col-sm-6 col-sm-push-3">
+                                   
+                                </div>
+                                <% } %>
+                              </div>
+                            </div>
+                          <% } %>
+                      </div>
+                    <%} else { %>
+                      <div class="col-md-6 col-sm-12 member" data-chat="<%= member._id %>">
+                        <% if( !member.isHost ) {%>
+                          <div class="groupPanel text-center admin" data-group="<%= groupChat._id %>" data-uid="<%= member._id %>">
+                            <div class="member-avatar">
+                              <% if( user.hostGroup.indexOf(groupChat._id.toString()) != -1 ) {%>
+                              <div class="dropdown-in-group">
+                                <div class="dropdown">
+                                  <a href="javascript:void(0)" data-toggle="dropdown" data-uid="<%= member._id %>" class="more-icons dropdown-toggle">
+                                    <img src="images/icons/more.png" >
+                                  </a>
+                                      <ul class="dropdown-menu more-authorize" data-button="<%= member._id %>" data-group="<%= groupChat._id %>" >
+                                        <li><a href="javascript:void(0)" class="more-remove-admin" data-uid="<%= member._id %>">Hủy quyền admin</a></li>
+                                        
+                                        <li><a href="javascript:void(0)" class="more-remove-member" data-uid="<%= member._id %>">Mời khỏi nhóm</a></li>
+                                      </ul>                                  
+                                </div>
+                              </div>
+                              <%}%>
+                              <div class="member-dot "></div>
+                              <img src="images/users/<%= member.avatar %>" class="img-avatar" >
+                            </div>
+                            <div class="member-name">
+                              
+                                <%= member.username %>
+                              
+                            </div>
+                            <div class="member-address">
+                              <p>
+                                <%= member.address ? member.address : "" %>
+                              </p>
+                            </div>
+                            <div class="row" >
+                              <div class="col-xs-6 col-xs-push-3 btn-box">
+                                <%if (member.isFriend == 0) {%>
+                                  <div class="member-request-contact-sent" data-uid="<%= member._id %>" >
+                                      <span>
+                                          Kết bạn
+                                      </span>
+                                  </div>
+                                  <%}%>
+                                  <% if (member.isFriend == -1 && member.isSender ) { %>
+                                  <div class="member-cancel-contact-sent" data-uid="<%= member._id %>">
+                                      <span>
+                                        Hủy kết bạn
+                                      </span>
+                                  </div>
+                                  <%}%>
+                                  <%if (member.isFriend == -1 && !member.isSender ) { %>
+                                    <div class="approve-request-contact-sent" data-uid="<%= member._id %>">
+                                      <span>
+                                        Xác nhận
+                                      </span>
+                                    </div>
+                                  <%}%>
+                                  <% if(member.isFriend == 1 ){ %>
+                                    <div class="member-talk" data-uid="<%= member._id %>" >
+                                      <span>
+                                        Nhắn tin
+                                      </span>
+                                    </div>
+                                  <%}%>
+                                 
+                              </div>
+                            </div>
+                          </div>
+                        <%} else { %>
+                          <div class="groupPanel text-center host" data-group="<%= groupChat._id %>" data-uid="<%= member._id %>">
+                            <div class="member-avatar">
+                              <div class="member-dot "></div>
+                              <img src="images/users/<%= member.avatar %>" class="img-avatar" >
+                            </div>
+                            <div class="member-name">                              
+                                <%= member.username %>                              
+                            </div>
+                            <div class="member-address">
+                              <p>
+                                <%= member.address ? member.address : "" %>
+                              </p>
+                            </div>
+                            <div class="row" >
+                              <div class="col-xs-6 col-xs-push-3 btn-box">
+                                <%if (member.isFriend == 0) {%>
+                                  <div class="member-request-contact-sent" data-uid="<%= member._id %>" >
+                                      <span>
+                                          Kết bạn
+                                      </span>
+                                  </div>
+                                  <%}%>
+                                  <% if (member.isFriend == -1 && member.isSender ) { %>
+                                  <div class="member-cancel-contact-sent" data-uid="<%= member._id %>">
+                                      <span>
+                                        Hủy kết bạn
+                                      </span>
+                                  </div>
+                                  <%}%>
+                                  <%if (member.isFriend == -1 && !member.isSender ) { %>
+                                    <div class="approve-request-contact-sent" data-uid="<%= member._id %>">
+                                      <span>
+                                        Xác nhận
+                                      </span>
+                                    </div>
+                                  <%}%>
+                                  <% if(member.isFriend == 1 ){ %>
+                                    <div class="member-talk" data-uid="<%= member._id %>" >
+                                      <span>
+                                        Nhắn tin
+                                      </span>
+                                    </div>
+                                  <%}%>
+                                 
+                                </div>
+                              </div>
+                          </div>
+                          <% } %>
+                      </div>
+                    
+                    <%}%>
+                  <%}%>
+                <%})%>
+                  </div>
+              </div>
+                            
+              <div class="normal-membersList">
+                Thành viên
+                <hr class="hr-members" >
+                <div class="row normal-members" data-group="<%= groupChat._id %>" data-user="<%= groupChat._id %>-<%= user._id %>">
+                <% groupChat.membersInfor.forEach (member =>  { %>
+                  
+                    <% if(member._id ==  user._id && !member.isAdmin ) {%>
+                      <div class="col-md-6 col-xs-12 member" data-chat="<%= member._id %>">
+                          <div class="groupPanel text-center" data-group="<%= groupChat._id %>" data-uid="<%= member._id %>">
+                            <div class="member-avatar">
+                                <div class="dropdown-in-group">
+                                  <div class="dropdown dropleft">
+                                    <a href="javascript:void(0)" data-toggle="dropdown" data-uid="<%= member._id %>" class=" dropdown-toggle more-icons">
+                                      <img src="images/icons/more.png" >
+                                    </a>    
+                                      <ul class="dropdown-menu more-authorize" data-button="<%= member._id %>" data-group="<%= groupChat._id %>">
+                                        <li><a href="javascript:void(0)" class="more-leave-group" data-uid= "<%= member._id %>">Rời khỏi nhóm</a></li>
+                                      </ul>                                    
+                                  </div>
+                                </div>
+                              <div class="member-dot"></div>
+                              <img src="images/users/<%= member.avatar %>" class="img-avatar">
+                            </div>
+                            <div class="member-name">
+                              
+                                <%= member.username %>
+                             
+                            </div>
+                            <div class="member-address">
+                              <p>
+                                <%= member.address ? member.address : "" %>
+                              </p>
+                            </div>
+                            <div class="row">
+                          
+                            </div>
+                          </div>
+                      </div>
+                    <% } else if( member._id != user._id && !member.isAdmin){ %>
+                      <div class="col-md-6 col-xs-12 member" data-chat="<%= member._id %>">
+                          <div class="groupPanel text-center" data-group="<%= groupChat._id %>" data-uid="<%= member._id %>">
+                            <div class="member-avatar">
+                              <% if (user.hostGroup.indexOf(groupChat._id.toString()) != -1 ){ %>
+                              <div class="dropdown-in-group">
+                                <div class="dropdown dropleft">
+                                  <a href="javascript:void(0)" data-toggle="dropdown" data-uid="<%= member._id %>" class=" dropdown-toggle more-icons">
+                                    <img src="images/icons/more.png" >
+                                  </a>
+                                  
+                                      <ul class="dropdown-menu more-authorize" data-button="<%= member._id %>" data-group="<%= groupChat._id %>">
+                                        <li><a href="javascript:void(0)" class=" more-authorize-admin" data-uid= "<%= member._id %>">Cấp quyền admin</a></li>
+                                        <li><a href="javascript:void(0)" class="more-remove-member" data-uid="<%= member._id %>">Mời khỏi nhóm</a></li>
+                                      </ul>
+                                  
+                                </div>
+                              </div>
+                              <%}%>
+                              <% if(user.adminGroup.indexOf(groupChat._id.toString()) != -1 && user.hostGroup.indexOf(groupChat._id.toString()) == -1 ) { %>
+                                <div class="dropdown-in-group">
+                                  <div class="dropdown dropleft">
+                                    <a href="javascript:void(0)" data-toggle="dropdown" data-uid="<%= member._id %>" class=" dropdown-toggle more-icons">
+                                      <img src="images/icons/more.png" >
+                                    </a>                                    
+                                      <ul class="dropdown-menu more-authorize" data-button="<%= member._id %>" data-group="<%= groupChat._id %>">
+                                          <li><a href="javascript:void(0)" class="more-remove-member" data-uid="<%= member._id %>">Mời khỏi nhóm</a></li>
+                                      </ul>                                    
+                                  </div>
+                                </div>
+                              <%}%>
+                              <div class="member-dot"></div>
+                              <img src="images/users/<%= member.avatar %>" class="img-avatar">
+                            </div>
+                            <div class="member-name">
+                              
+                                <%= member.username %>
+                              
+                            </div>
+                            <div class="member-address">
+                                <p>
+                                  <%= member.address ? member.address : "" %>
+                                </p>
+                              </div>
+                            <div class="row">
+                           
+                              <div class="col-xs-6  col-xs-push-3 btn-box">
+                                <%if (member.isFriend == 0 ) { %>
+                                  <div class="member-request-contact-sent" data-uid="<%= member._id %>" >
+                                      <span>
+                                          Kết bạn
+                                      </span>
+                                  </div>
+                                  <%}%>
+                                  <%if (member.isFriend == -1 && member.isSender ) { %>
+                                  <div class="member-cancel-contact-sent" data-uid="<%= member._id %>">
+                                    <span>
+                                      Hủy kết bạn
+                                    </span>
+                                  </div>
+                                  <%}%>
+                                  <%if (member.isFriend == -1 && !member.isSender ) { %>
+                                    <div class="approve-request-contact-sent" data-uid="<%= member._id %>">
+                                      <span>
+                                        Xác nhận
+                                      </span>
+                                    </div>
+                                    <%}%>
+                                  <%if (member.isFriend == 1 ){ %>
+                                    <div class="member-talk" data-uid="<%= member._id %>" >
+                                      <span>
+                                        Nhắn tin
+                                      </span>
+                                    </div>
+                                <%}%>
+                              </div>
+                            
+                            </div>
+                          </div>
+                      </div>
+                    <% } %>
+                  
+                  <%})%>
+                </div>
+              </div>   
+            </div>   
+          </div>
+      </div>
+  </div>
+</div>
+<% }) %>

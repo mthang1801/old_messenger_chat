@@ -1,0 +1,11 @@
+<% newMessages.forEach ( conversation =>  {%>
+
+                 
+    <% conversation.messages.forEach ( message =>  {%>
+        <% if(message.messageType == "image") {%>
+            <img src="data:<%=message.file.contentType%>;base64,<%= bufferToBase64(message.file.data) %>"/>
+        <%}%>
+    <%})%>
+                  
+            
+<%})%>

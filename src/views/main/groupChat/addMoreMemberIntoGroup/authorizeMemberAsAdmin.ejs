@@ -1,0 +1,63 @@
+<div class="col-md-6 col-sm-12 member" data-chat="<%= member._id %>">
+  <div class="groupPanel text-center admin" data-group="<%= member.groupId %>" data-uid="<%= member._id %>">
+    <div class="member-avatar">
+      <div class="dropdown-in-group">
+        <div class="dropdown">
+          <a href="javascript:void(0)" data-toggle="dropdown" data-uid="<%= member._id %>" class="more-icons dropdown-toggle">
+            <img src="images/icons/more.png" >
+          </a>
+              <ul class="dropdown-menu more-authorize" data-button="<%= member._id %>" data-group="<%= member.groupId %>" >
+                <li><a href="javascript:void(0)" class="more-remove-admin" data-uid="<%= member._id %>">Hủy quyền admin</a></li>
+                
+                <li><a href="javascript:void(0)" class="more-remove-member" data-uid="<%= member._id %>">Mời khỏi nhóm</a></li>
+              </ul>                                  
+        </div>
+      </div>
+      <div class="member-dot "></div>
+      <img src="images/users/<%= member.avatar %>" class="img-avatar" >
+    </div>
+    <div class="member-name">
+      
+        <%= member.username %>
+      
+    </div>
+    <div class="member-address">
+      <p>
+        <%= member.address ? member.address : "" %>
+      </p>
+    </div>
+    <div class="row" >
+      <div class="col-xs-6 col-xs-push-3 btn-box">
+        <%if (member.isFriend == 0) {%>
+          <div class="member-request-contact-sent" data-uid="<%= member._id %>" >
+              <span>
+                  Kết bạn
+              </span>
+          </div>
+          <%}%>
+          <% if (member.isFriend == -1 && member.isSender ) { %>
+          <div class="member-cancel-contact-sent" data-uid="<%= member._id %>">
+              <span>
+                Hủy kết bạn
+              </span>
+          </div>
+          <%}%>
+          <%if (member.isFriend == -1 && !member.isSender ) { %>
+            <div class="approve-request-contact-sent" data-uid="<%= member._id %>">
+              <span>
+                Xác nhận
+              </span>
+            </div>
+          <%}%>
+          <% if(member.isFriend == 1 ){ %>
+            <div class="member-talk" data-uid="<%= member._id %>" >
+              <span>
+                Nhắn tin
+              </span>
+            </div>
+          <%}%>
+        
+      </div>
+    </div>
+  </div>
+</div>

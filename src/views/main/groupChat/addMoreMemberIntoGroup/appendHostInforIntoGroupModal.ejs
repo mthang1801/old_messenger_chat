@@ -1,0 +1,42 @@
+<div class="col-md-6 col-sm-12 member" data-chat="<%= host._id %>">
+  <div class="groupPanel text-center host" data-group="<%= host.groupId %>" data-uid="<%= host._id %>">
+    <div class="member-avatar">
+      <div class="member-dot "></div>
+      <img src="images/users/<%= host.avatar %>" class="img-avatar" >
+    </div>
+    <div class="member-name">                              
+        <%= host.username %>                              
+    </div>
+    <div class="member-address">
+      <p>
+        <%= host.address ? host.address : "" %>
+      </p>
+    </div>
+    <div class="row" >
+      <div class="col-xs-6 col-xs-push-3 btn-box">
+          <%if (host.isFriend == 0) {%>
+            <div class="member-request-contact-sent" data-uid="<%= host._id %>" >
+                <span>
+                    Kết bạn
+                </span>
+            </div>
+          <%}%>
+          <% if (host.isFriend == -1 && host.isSender ) { %>
+            <div class="member-cancel-contact-sent" data-uid="<%= member._id %>">
+                <span>
+                  Hủy kết bạn
+                </span>
+            </div>
+            <%}%>
+          <% if(host.isFriend == 1 ){ %>
+            <div class="member-talk" data-uid="<%= host._id %>" >
+              <span>
+                Nhắn tin
+              </span>
+            </div>
+          <%}%>
+        
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="col-md-6 col-xs-12 member" data-chat="<%= member._id %>">
+  <div class="groupPanel text-center" data-group="<%= member.groupId %>" data-uid="<%= member._id %>">
+    <div class="member-avatar">
+        <div class="dropdown-in-group">
+          <div class="dropdown dropleft">
+            <a href="javascript:void(0)" data-toggle="dropdown" data-uid="<%= member._id %>" class=" dropdown-toggle more-icons">
+              <img src="images/icons/more.png" >
+            </a>    
+              <ul class="dropdown-menu more-authorize" data-button="<%= member._id %>" data-group="<%= member.groupId %>">
+                <li><a href="javascript:void(0)" class="more-leave-group" data-uid= "<%= member._id %>">Rời khỏi nhóm</a></li>
+              </ul>                                    
+          </div>
+        </div>
+      <div class="member-dot"></div>
+      <img src="images/users/<%= member.avatar %>" class="img-avatar">
+    </div>
+    <div class="member-name">
+      
+        <%= member.username %>
+     
+    </div>
+    <div class="member-address">
+      <p>
+        <%= member.address ? member.address : "" %>
+      </p>
+    </div>
+    <div class="row">
+      <!-- nothing button -->
+    </div>
+  </div>
+</div>

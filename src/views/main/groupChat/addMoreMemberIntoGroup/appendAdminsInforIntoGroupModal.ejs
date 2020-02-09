@@ -1,0 +1,53 @@
+<% admins.forEach( admin => { %>
+<div class="col-md-6 col-sm-12 member" data-chat="<%= admin._id %>">
+  <div class="groupPanel text-center admin" data-group="<%= admin.groupId %>" data-uid="<%= admin._id %>">
+    <div class="member-avatar">
+      <div class="member-dot "></div>
+      <img src="images/users/<%= admin.avatar %>" class="img-avatar" >
+    </div>
+    <div class="member-name">
+      
+        <%= admin.username %>
+      
+    </div>
+    <div class="member-address">
+      <p>
+        <%= admin.address ? admin.address : "" %>
+      </p>
+    </div>
+    <div class="row" >
+      <div class="col-xs-6 col-xs-push-3 btn-box">
+        <%if (admin.isFriend == 0) {%>
+          <div class="member-request-contact-sent" data-uid="<%= admin._id %>" >
+              <span>
+                  Kết bạn
+              </span>
+          </div>
+          <%}%>
+          <% if (admin.isFriend == -1 && admin.isSender ) { %>
+          <div class="member-cancel-contact-sent" data-uid="<%= admin._id %>">
+              <span>
+                Hủy kết bạn
+              </span>
+          </div>
+          <%}%>
+          <%if (admin.isFriend == -1 && !admin.isSender ) { %>
+            <div class="approve-request-contact-sent" data-uid="<%= admin._id %>">
+              <span>
+                Xác nhận
+              </span>
+            </div>
+          <%}%>
+          <% if(admin.isFriend == 1 ){ %>
+            <div class="member-talk" data-uid="<%= admin._id %>" >
+              <span>
+                Nhắn tin
+              </span>
+            </div>
+          <%}%>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<%})%>

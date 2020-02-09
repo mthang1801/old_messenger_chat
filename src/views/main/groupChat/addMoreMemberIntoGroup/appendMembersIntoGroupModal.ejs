@@ -1,0 +1,54 @@
+<% members.forEach( member => { %>
+  <div class="col-md-6 col-xs-12 member" data-chat="<%= member._id %>">
+    <div class="groupPanel text-center" data-group="<%= member.groupId %>" data-uid="<%= member._id %>">
+      <div class="member-avatar">
+        <div class="member-dot"></div>
+        <img src="images/users/<%= member.avatar %>" class="img-avatar">
+      </div>
+      <div class="member-name">
+        
+          <%= member.username %>
+        
+      </div>
+      <div class="member-address">
+          <p>
+            <%= member.address ? member.address : "" %>
+          </p>
+        </div>
+      <div class="row">
+     
+        <div class="col-xs-6  col-xs-push-3 btn-box">
+          <%if (member.isFriend == 0 ) { %>
+            <div class="member-request-contact-sent" data-uid="<%= member._id %>" >
+                <span>
+                    Kết bạn
+                </span>
+            </div>
+            <%}%>
+            <%if (member.isFriend == -1 && member.isSender ) { %>
+            <div class="member-cancel-contact-sent" data-uid="<%= member._id %>">
+              <span>
+                Hủy kết bạn
+              </span>
+            </div>
+            <%}%>
+            <%if (member.isFriend == -1 && !member.isSender ) { %>
+              <div class="approve-request-contact-sent" data-uid="<%= member._id %>">
+                <span>
+                  Xác nhận
+                </span>
+              </div>
+              <%}%>
+            <%if (member.isFriend == 1 ){ %>
+              <div class="member-talk" data-uid="<%= member._id %>" >
+                <span>
+                  Nhắn tin
+                </span>
+              </div>
+          <%}%>
+        </div>
+      
+      </div>
+    </div>
+</div>
+<%})%>

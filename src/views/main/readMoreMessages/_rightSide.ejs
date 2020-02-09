@@ -1,0 +1,76 @@
+<% newMessages.forEach( (conversation , index ) =>  { %>
+  <% if (conversation.members) { %>
+    <% conversation.messages.forEach ( message =>  { %>
+      <% if(message.messageType == "text") {%>
+          <div class="bubble <%if (message.senderId == user._id) { %> me <%} else {%> you <%}%>" data-mess-id="<%= message._id %>" title="<%= popupMessageTime(message.createdAt)  %>">
+          <img src="images/users/<%= message.sender.avatar%>" class="avatar-small" >
+              <%= message.text %>
+          </div>
+      <%}%>
+      <% if(message.messageType == "image") {%>
+      <div class="bubble <% if(message.senderId == user._id) { %> me <%} else {%> you <%}%> bubble-image-file" data-mess-id="<%= message._id %>" title="<%= popupMessageTime(message.createdAt)  %>">
+          <img src="images/users/<%= message.sender.avatar%>" class="avatar-small"  title="<%= message.sender.name %>">
+          <a href="javascript:void(0)" class="btn-msg-image-modal" data-mess-id="img-<%= message._id %>">
+              <img src="data:<%=message.file.contentType%>;base64,<%= bufferToBase64(message.file.data) %>" class="show-image-chat" / >
+          </a>
+          <div id="img-<%= message._id %>" class="img-modal">
+                <!-- Modal content -->
+                <span class="img-close">&times;</span>
+                <div class="img-modal-content">
+                  <img class="img-content" src="data:<%=message.file.contentType%>;base64,<%= bufferToBase64(message.file.data) %>" />
+                </div>                                      
+            </div>
+      </div>
+      <%}%>
+      <%if (message.messageType == "file") {%>
+          <div class="bubble <% if(message.senderId == user._id) { %> me <%} else {%> you <%}%> bubble-image-file" data-mess-id="<%= message._id %>" title="<%= popupMessageTime(message.createdAt)  %>">
+              <img src="images/users/<%= message.sender.avatar%>" class="avatar-small"  title="<%= message.sender.name %>">
+              <a href="data:<%= message.file.contentType %>;base64,<%= bufferToBase64(message.file.data) %>" 
+              download="<%= message.file.fileName %>" >
+               <%= message.file.fileName %>
+              </a>
+          </div>
+            <div id="img-<%= message._id %>" class="img-modal">
+                <!-- Modal content -->
+                <span class="img-close">&times;</span>
+                <div class="img-modal-content">
+                    <img class="img-content"/>
+                </div>                                      
+            </div>
+      <%}%>
+  <%})%>
+<%} else { %>
+  <% conversation.messages.forEach ( message =>  { %>
+    <% if(message.messageType == "text") {%>
+        <div class="bubble <%if (message.senderId == user._id) { %> me <%} else {%> you <%}%>" data-mess-id="<%= message._id %>" title="<%= popupMessageTime(message.createdAt) %>">
+        <!-- <img src="images/users/<%= message.sender.avatar%>" class="avatar-small"  title="<%= message.sender.name %>"> -->
+            <%= message.text %>
+        </div>
+    <%}%>
+    <% if(message.messageType == "image") {%>
+    <div class="bubble <% if(message.senderId == user._id) { %> me <%} else {%> you <%}%> bubble-image-file" data-mess-id="<%= message._id %>" title="<%= popupMessageTime(message.createdAt)  %>">
+        <!-- <img src="images/users/<%= message.sender.avatar%>" class="avatar-small"  title="<%= message.sender.name %>"> -->
+        <a href="javascript:void(0)" class="btn-msg-image-modal" data-mess-id="img-<%= message._id %>">
+            <img src="data:<%=message.file.contentType%>;base64,<%= bufferToBase64(message.file.data) %>" class="show-image-chat" />
+        </a>
+    </div>
+    <div id="img-<%= message._id %>" class="img-modal">
+            <!-- Modal content -->
+            <span class="img-close">&times;</span>
+            <div class="img-modal-content">
+                <img class="img-content" src="data:<%=message.file.contentType%>;base64,<%= bufferToBase64(message.file.data) %>" />
+            </div>                                      
+        </div>
+    <%}%>
+    <%if (message.messageType == "file") {%>
+        <div class="bubble <% if(message.senderId == user._id) { %> me <%} else {%> you <%}%> bubble-image-file" data-mess-id="<%= message._id %> " title="<%= popupMessageTime(message.createdAt)%>">
+            <!-- <img src="images/users/<%= message.sender.avatar%>" class="avatar-small"  title="<%= message.sender.name %>"> -->
+            <a href="data:<%= message.file.contentType %>;base64,<%= bufferToBase64(message.file.data) %>" 
+            download="<%= message.file.fileName %>">
+             <%= message.file.fileName %>
+            </a>
+        </div>
+    <%}%>
+    <%})%>
+<%}%>
+<%})%>

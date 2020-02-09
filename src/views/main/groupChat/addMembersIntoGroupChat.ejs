@@ -1,0 +1,31 @@
+<% allMembersInGroup.forEach( groupChat => { %>
+  <div class="modal fade" id="addMembers-<%= groupChat._id %>" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Thêm thành viên vào nhóm <%= groupChat._name %></h4>
+              </div>
+              <div class="modal-body">
+                  <div class="col-md-5 col-sm-12 find-user-add-to-group">
+                      <div class="row form-search-to-add">
+                          <div class="form-group">
+                              <input type="text" class="form-control input-search-more-friend-to-add-group-chat" id="input-search-friend-to-add-chat-group-<%= groupChat._id %>" data-group-uid="<%= groupChat._id %>" placeholder="Nhập E-mail hoặc username của bạn bè..." />
+                              <span class="btn-group-btn">
+                                  <button class="btn btn-lg btn-search-more-friend-to-add-group-chat" type="button" data-group-uid="<%= groupChat._id %>">
+                                      <i class="glyphicon glyphicon-search"></i>
+                                  </button>
+                              </span>
+                          </div>
+                      </div>
+                      <div class="row result-more-searched">
+                          <ul class="contactsList" data-group-uid="<%= groupChat._id %>">
+                            
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <% }) %>
